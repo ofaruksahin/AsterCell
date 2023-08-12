@@ -4,6 +4,7 @@ using AsterCell.AuthenticationServer.Extensions;
 using AsterCell.AuthenticationServer.ViewModels;
 using IdentityServer4.Events;
 using IdentityServer4.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -11,25 +12,23 @@ using System.Threading.Tasks;
 
 namespace AsterCell.AuthenticationServer.Controllers
 {
+    [AllowAnonymous]
     public class AccountController : Controller
     {
         private readonly IEventService _eventService;
-        private readonly IIdentityServerInteractionService _interaction;
         private readonly SignInManager<AsterCellUser> _signInManager;
 
         public AccountController(
              IEventService eventService,
-            IIdentityServerInteractionService interaction,
             SignInManager<AsterCellUser> signInManager
            )
         {
             _eventService = eventService ?? throw new ArgumentNullException(nameof(eventService));
             _signInManager = signInManager ?? throw new ArgumentNullException(nameof(signInManager));
-            _interaction = interaction ?? throw new ArgumentNullException(nameof(interaction));
         }
 
         [HttpGet]
-        public IActionResult LogIn(string returnUrl)
+        public IActionResult Login(string returnUrl)
         {
             var vm = new LoginViewModel(returnUrl);
 
@@ -38,11 +37,10 @@ namespace AsterCell.AuthenticationServer.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> LogIn(LoginViewModel vm)
+        public async Task<IActionResult> Login(LoginViewModel vm)
         {
             if (!ModelState.IsValid) return View(vm);
 
-            var context = await _interaction.GetAuthorizationContextAsync(vm.ReturnUrl);
 
             var user = await _signInManager.UserManager.FindByEmailAsync(vm.Email);
 
@@ -56,20 +54,12 @@ namespace AsterCell.AuthenticationServer.Controllers
 
             if (!signInResult.Succeeded)
             {
-                await _eventService.RaiseAsync(new UserLoginFailureEvent(vm.Email, Messages.InvalidUsernameOrPassword, clientId: context?.Client.ClientId));
+                await _eventService.RaiseAsync(new UserLoginFailureEvent(vm.Email, Messages.InvalidUsernameOrPassword));
                 ModelState.AddModelError(string.Empty, Messages.InvalidUsernameOrPassword);
                 return View(vm);
             }
 
-            if (context != null)
-            {
-                if (context.IsNativeClient())
-                {
-                    return this.LoadingPage("Redirect", vm.ReturnUrl);
-                }
-
-                return Redirect(vm.ReturnUrl);
-            }
+            await _eventService.RaiseAsync(new UserLoginSuccessEvent(user.Email, user.Id.ToString(), user.Email));
 
             if (Url.IsLocalUrl(vm.ReturnUrl))
             {
@@ -78,12 +68,9 @@ namespace AsterCell.AuthenticationServer.Controllers
             else if (string.IsNullOrEmpty(vm.ReturnUrl))
             {
                 return Redirect("~/");
-            }else
-            {
-                ModelState.AddModelError(string.Empty, Messages.InvalidUsernameOrPassword);
             }
 
-            return View(vm);
+            return Redirect(vm.ReturnUrl);
         }
 
         [HttpGet]
