@@ -1,26 +1,267 @@
-﻿// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
-// Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
-
-
-using IdentityServer4.Models;
+﻿using IdentityServer4.Models;
+using IdentityServer4.Test;
+using IdentityServer4;
 using System.Collections.Generic;
+using System.Security.Claims;
+using System;
 
 namespace AsterCell.AuthenticationServer
 {
     public static class Config
     {
-        public static IEnumerable<IdentityResource> IdentityResources =>
-            new IdentityResource[]
+        public static IEnumerable<ApiResource> GetApiResources()
+        {
+            return new List<ApiResource>
             {
-                new IdentityResources.OpenId()
+                new ApiResource("resource_api1")
+                {
+                    Scopes = new List<string>{"api1.read","api1.write","api1.update"},
+                    ApiSecrets = new[]{new Secret("secretapi1".Sha256())}
+                },
+                new ApiResource("resource_api2")
+                {
+                    Scopes = new List<string>{"api2.read","api2.write","api2.update"},
+                    ApiSecrets = new[]{new Secret("secretapi2".Sha256())}
+                }
             };
+        }
 
-        public static IEnumerable<ApiScope> ApiScopes =>
-            new ApiScope[]
-            { };
+        public static IEnumerable<ApiScope> GetApiScopes()
+        {
+            return new List<ApiScope>
+            {
+                new ApiScope("api1.read","API 1 için okuma izni"),
+                new ApiScope("api1.write","API 1 için yazma izni"),
+                new ApiScope("api1.update","" +
+                "API 1 için güncelleme izni"),
+                new ApiScope("api2.read","API 2 için okuma izni"),
+                new ApiScope("api2.write","API 2 için yazma izni"),
+                new ApiScope("api2.update","API 2 için güncelleme izni")
+            };
+        }
 
-        public static IEnumerable<Client> Clients =>
-            new Client[]
-            { };
+        public static IEnumerable<Client> GetClients()
+        {
+            return new List<Client>
+            {
+                new Client
+                {
+                    ClientName = "Client1 Application",
+                    ClientId = "Client1",
+                    ClientSecrets = new[]
+                    {
+                        new Secret("secret".Sha256())
+                    },
+                    AllowedGrantTypes = GrantTypes.ClientCredentials,
+                    AllowedScopes =
+                    {
+                        "api1.read"
+                    }
+                },
+                new Client
+                {
+                    ClientName = "Client2 Application",
+                    ClientId = "Client2",
+                    ClientSecrets = new[]
+                    {
+                        new Secret("secret".Sha256())
+                    },
+                    AllowedGrantTypes = GrantTypes.ClientCredentials,
+                    AllowedScopes =
+                    {
+                        "api1.read","api2.write","api2.update"
+                    }
+                },
+                new Client
+                {
+                    ClientName = "Client1 Application (MVC)",
+                    ClientId = "Client1-MVC",
+                    ClientSecrets = new[]
+                    {
+                        new Secret("secret".Sha256())
+                    },
+                    AllowedGrantTypes = GrantTypes.Hybrid,
+                    RedirectUris = new List<string>
+                    {
+                        "https://localhost:5011/signin-oidc"
+                    },
+                    AllowedScopes = new List<string>
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        IdentityServerConstants.StandardScopes.OfflineAccess,
+                        IdentityServerConstants.StandardScopes.Email,
+                        "api1.read",
+                        "CountryAndCity",
+                        "Roles"
+                    },
+                    RequirePkce = false, 
+                    AllowOfflineAccess = true, 
+                    AccessTokenLifetime = (int)TimeSpan.FromHours(2).TotalSeconds, 
+                    RefreshTokenUsage = TokenUsage.ReUse, 
+                    AbsoluteRefreshTokenLifetime = (int)TimeSpan.FromDays(60).TotalSeconds, 
+                    RefreshTokenExpiration = TokenExpiration.Absolute,
+                    PostLogoutRedirectUris = new List<string>
+                    {
+                        "https://localhost:5011/signout-callback-oidc"
+                    },
+                    RequireConsent = true,
+                },
+                new Client
+                {
+                    ClientName = "Client2 Application (MVC)",
+                    ClientId = "Client2-MVC",
+                    ClientSecrets = new[]
+                    {
+                        new Secret("secret".Sha256())
+                    },
+                    AllowedGrantTypes = GrantTypes.Hybrid,
+                    RedirectUris = new List<string>
+                    {
+                        "https://localhost:5013/signin-oidc"
+                    },
+                    AllowedScopes = new List<string>
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        IdentityServerConstants.StandardScopes.OfflineAccess,
+                        "api1.read",
+                        "CountryAndCity",
+                        "Roles"
+                    },
+                    RequirePkce = false, 
+                    AllowOfflineAccess = true, 
+                    AccessTokenLifetime = (int)TimeSpan.FromHours(2).TotalSeconds,
+                    RefreshTokenUsage = TokenUsage.ReUse, 
+                    AbsoluteRefreshTokenLifetime = (int)TimeSpan.FromDays(60).TotalSeconds, 
+                    RefreshTokenExpiration = TokenExpiration.Absolute, 
+                    PostLogoutRedirectUris = new List<string>
+                    {
+                        "https://localhost:5013/signout-callback-oidc"
+                    },
+                    RequireConsent = true,
+                },
+                new Client
+                {
+                    ClientId = "angular-client",
+                    RequireClientSecret = false,
+                    ClientName="angular-client",
+                    AllowedGrantTypes = GrantTypes.Code,
+                    AllowedScopes =
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        IdentityServerConstants.StandardScopes.Email,
+                        IdentityServerConstants.StandardScopes.OfflineAccess,
+                        "api1.read",
+                        "CountryAndCity",
+                        "Roles"
+                    },
+                    RedirectUris =
+                    {
+                        "http://localhost:4200/callback"
+                    },
+                    AllowedCorsOrigins =
+                    {
+                        "http://localhost:4200"
+                    },
+                    PostLogoutRedirectUris =
+                    {
+                        "http://localhost:4200"
+                    },
+                },
+                new Client
+                {
+                    ClientName = "Client1 Application (MVC)",
+                    ClientId = "client1-resource-owner",
+                    ClientSecrets = new[]
+                    {
+                        new Secret("secret".Sha256())
+                    },
+                    AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
+                    AllowedScopes = new List<string>
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        IdentityServerConstants.StandardScopes.OfflineAccess,
+                        IdentityServerConstants.StandardScopes.Email,
+                        "api1.read",
+                        "CountryAndCity",
+                        "Roles"
+                    },
+                    RequirePkce = false,
+                    AllowOfflineAccess = true, 
+                    AccessTokenLifetime = (int)TimeSpan.FromHours(2).TotalSeconds, 
+                    RefreshTokenUsage = TokenUsage.ReUse, 
+                    AbsoluteRefreshTokenLifetime = (int)TimeSpan.FromDays(60).TotalSeconds, 
+                    RefreshTokenExpiration = TokenExpiration.Absolute, 
+                 }
+            };
+        }
+
+        public static IEnumerable<IdentityResource> GetIdentityResources()
+        {
+            return new List<IdentityResource>
+            {
+                new IdentityResources.Email(),
+                 new IdentityResources.OpenId(),
+                 new IdentityResources.Profile(),
+                 new IdentityResource
+                 {
+                     Name = "CountryAndCity",
+                     DisplayName = "Country and City",
+                     Description = "User country and city info",
+                     UserClaims =
+                     {
+                         "country","city"
+                     }
+                 },
+                 new IdentityResource
+                 {
+                     Name = "Roles",
+                     DisplayName = "Roles",
+                     Description = "User Roles",
+                     UserClaims =
+                     {
+                         "role"
+                     }
+                 }
+            };
+        }
+
+        public static List<TestUser> GetUsers()
+        {
+            return new List<TestUser>
+            {
+                new TestUser
+                {
+                    SubjectId  = "1",
+                    Username = "ofaruksahin@outlook.com.tr",
+                    Password = "123456789fF@",
+                    Claims = new List<Claim>
+                    {
+                        new Claim("given_name","Ömer Faruk"),
+                        new Claim("family_name","Şahin"),
+                        new Claim("country","Türkiye"),
+                        new Claim("city","İstanbul"),
+                        new Claim("role","admin"),
+                    }
+                },
+                new TestUser
+                {
+                    SubjectId = "2",
+                    Username = "harunsahin@outlook.com.tr",
+                    Password = "123456789fF@",
+                    Claims = new List<Claim>
+                    {
+                        new Claim("given_name","Harun"),
+                        new Claim("family_name","Şahin"),
+                        new Claim("country","Türkiye"),
+                        new Claim("city","İstanbul"),
+                        new Claim("role","member")
+                    }
+                }
+            };
+        }
     }
 }

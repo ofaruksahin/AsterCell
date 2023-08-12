@@ -43,13 +43,15 @@ namespace AsterCell.AuthenticationServer
                 options.EmitStaticAudienceClaim = true;
             });
 
+            string migrationAssembly = typeof(AsterCellAuthenticationServerDbContext).Assembly.FullName;
+
             identityServerBuilder.AddOperationalStore(options =>
             {
                 options.ConfigureDbContext = builder =>
-                    builder.UseSqlServer(connectionString, options => options.MigrationsAssembly(typeof(AsterCellAuthenticationServerDbContext).Assembly.FullName));
+                    builder.UseSqlServer(connectionString, options => options.MigrationsAssembly(migrationAssembly));
             }).AddConfigurationStore(options =>
                 options.ConfigureDbContext = builder =>
-                    builder.UseSqlServer(connectionString, options => options.MigrationsAssembly(typeof(AsterCellAuthenticationServerDbContext).Assembly.FullName)));
+                    builder.UseSqlServer(connectionString, options => options.MigrationsAssembly(migrationAssembly)));
 
             identityServerBuilder.AddAspNetIdentity<AsterCellUser>();
 
@@ -88,78 +90,44 @@ namespace AsterCell.AuthenticationServer
                 var context = scope.ServiceProvider.GetRequiredService<ConfigurationDbContext>();
                 var userManager = scope.ServiceProvider.GetRequiredService<UserManager<AsterCellUser>>();
 
-                var clients = new List<Client>();
-
-                clients.Add(new Client
-                {
-                    ClientId = "oauthClient",
-                    ClientName = "Example client application using client credentials",
-                    AllowedGrantTypes = GrantTypes.ClientCredentials,
-                    ClientSecrets = new List<Secret> { new Secret("SuperSecretPsasword".Sha256()) },
-                    AllowedScopes = new List<string> { "api1.read" }
-                });
-
-                clients.Add(new Client
-                {
-                    ClientId = "oidClient",
-                    ClientName = "Example Client Application",
-                    ClientSecrets = new List<Secret> { new Secret("SuperSecretPassword".Sha256()) },
-                    AllowedGrantTypes = GrantTypes.Code,
-                    RedirectUris = new List<string> { "https://localhost:5002/signin-oidc" },
-                    AllowedScopes = new List<string>
-                    {
-                        IdentityServerConstants.StandardScopes.OpenId,
-                        IdentityServerConstants.StandardScopes.Profile,
-                        IdentityServerConstants.StandardScopes.Email,
-                        "role",
-                        "api1.read"
-                    },
-                    RequirePkce = true,
-                    AllowPlainTextPkce = false
-                });
-
                 if (!context.Clients.Any())
                 {
-                    foreach (var client in clients)
+                    foreach (var client in Config.GetClients())
                         context.Clients.Add(client.ToEntity());
                 }
 
-                var identityResources = new List<IdentityResource>();
-                identityResources.Add(new IdentityResources.OpenId());
-                identityResources.Add(new IdentityResources.Profile());
-                identityResources.Add(new IdentityResources.Email());
-                identityResources.Add(new IdentityResource("role", new List<string> { "role" }));
-
                 if (!context.IdentityResources.Any())
                 {
-                    foreach (var identityResource in identityResources)
+                    foreach (var identityResource in Config.GetIdentityResources())
                         context.IdentityResources.Add(identityResource.ToEntity());
                 }
 
-                var apiScopes = new List<ApiScope>();
-
-                apiScopes.Add(new ApiScope("api1.read", "Read Access to API 1"));
-                apiScopes.Add(new ApiScope("api1.write", "Write Access to API 1"));
-
                 if (!context.ApiScopes.Any())
                 {
-                    foreach (var apiScope in apiScopes)
+                    foreach (var apiScope in Config.GetApiScopes())
                         context.ApiScopes.Add(apiScope.ToEntity());
                 }
 
                 if (!userManager.Users.Any())
                 {
-                    var user = new AsterCellUser
+                    foreach (var item in Config.GetUsers())
                     {
-                        UserName = "ofaruksahin@outlook.com.tr",
-                        Email = "ofaruksahin@outlook.com.tr"
-                    };
-                    userManager.CreateAsync(user, "Password123!").Wait();
-                    userManager.AddClaimsAsync(user, new List<Claim>
-                    {
-                        new Claim(JwtClaimTypes.Email,user.Email),
-                        new Claim(JwtClaimTypes.Role, "admin")
-                    }).Wait();
+                        var user = new AsterCellUser
+                        {
+                            UserName = item.Username,
+                            Email = item.Username
+                        };
+                        var userCreateUser = userManager.CreateAsync(user, item.Password).ConfigureAwait(false).GetAwaiter().GetResult();
+
+                        if (userCreateUser.Succeeded)
+                        {
+                            userManager.AddClaimsAsync(user, new List<Claim>
+                            {
+                                new Claim(JwtClaimTypes.Email,user.Email),
+                                new Claim(JwtClaimTypes.Role, "admin")
+                            }).Wait();
+                        }
+                    }                        
                 }
 
                 context.SaveChanges();
