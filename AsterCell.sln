@@ -5,7 +5,23 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E3C5A508-75A5-44F3-BC9D-611D1318A141}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsterCell.Ari.Client", "src\AsterCell.Ari.Client\AsterCell.Ari.Client.csproj", "{D3D7CF9D-DB32-4C68-BF7C-FF2CB89E1413}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{8039C294-9CC3-4A09-9850-D03629B0425A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{4038B32A-97A9-4411-A69B-B27375E1AF3E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{FB6D1B5B-5A78-4422-82EC-321E486663B8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{17A92C41-4EBD-43EA-8C1C-5D6CAE9F0DA9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AsterCell.Ari.Client", "src\Application\AsterCell.Ari.Client\AsterCell.Ari.Client.csproj", "{A5F37772-372A-4C68-8501-11B570E6712E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AsterCell.AuthenticationServer.Domain", "src\Domain\AsterCell.AuthenticationServer.Domain\AsterCell.AuthenticationServer.Domain.csproj", "{72BBEB3E-850A-462A-A5F4-650E6793FCE8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AsterCell.AuthenticationServer.Infrastructure", "src\Infrastructure\AsterCell.AuthenticationServer.Infrastructure\AsterCell.AuthenticationServer.Infrastructure.csproj", "{3AF15578-30CE-40CE-AD38-2C3FB46E27B4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AsterCell.AuthenticationServer", "src\Presentation\AsterCell.AuthenticationServer\AsterCell.AuthenticationServer.csproj", "{FD015EBC-11B8-449B-A868-72320ACCAACF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsterCell.AuthenticationServer.Client", "src\Presentation\AsterCell.AuthenticationServer.Client\AsterCell.AuthenticationServer.Client.csproj", "{001C8E0D-0850-4554-A234-FA46ADC4186F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,15 +29,42 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D3D7CF9D-DB32-4C68-BF7C-FF2CB89E1413}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D3D7CF9D-DB32-4C68-BF7C-FF2CB89E1413}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D3D7CF9D-DB32-4C68-BF7C-FF2CB89E1413}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D3D7CF9D-DB32-4C68-BF7C-FF2CB89E1413}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5F37772-372A-4C68-8501-11B570E6712E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5F37772-372A-4C68-8501-11B570E6712E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5F37772-372A-4C68-8501-11B570E6712E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5F37772-372A-4C68-8501-11B570E6712E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72BBEB3E-850A-462A-A5F4-650E6793FCE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72BBEB3E-850A-462A-A5F4-650E6793FCE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72BBEB3E-850A-462A-A5F4-650E6793FCE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72BBEB3E-850A-462A-A5F4-650E6793FCE8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3AF15578-30CE-40CE-AD38-2C3FB46E27B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3AF15578-30CE-40CE-AD38-2C3FB46E27B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3AF15578-30CE-40CE-AD38-2C3FB46E27B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3AF15578-30CE-40CE-AD38-2C3FB46E27B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD015EBC-11B8-449B-A868-72320ACCAACF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD015EBC-11B8-449B-A868-72320ACCAACF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD015EBC-11B8-449B-A868-72320ACCAACF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD015EBC-11B8-449B-A868-72320ACCAACF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{001C8E0D-0850-4554-A234-FA46ADC4186F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{001C8E0D-0850-4554-A234-FA46ADC4186F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{001C8E0D-0850-4554-A234-FA46ADC4186F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{001C8E0D-0850-4554-A234-FA46ADC4186F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{D3D7CF9D-DB32-4C68-BF7C-FF2CB89E1413} = {E3C5A508-75A5-44F3-BC9D-611D1318A141}
+		{8039C294-9CC3-4A09-9850-D03629B0425A} = {E3C5A508-75A5-44F3-BC9D-611D1318A141}
+		{4038B32A-97A9-4411-A69B-B27375E1AF3E} = {E3C5A508-75A5-44F3-BC9D-611D1318A141}
+		{FB6D1B5B-5A78-4422-82EC-321E486663B8} = {E3C5A508-75A5-44F3-BC9D-611D1318A141}
+		{17A92C41-4EBD-43EA-8C1C-5D6CAE9F0DA9} = {E3C5A508-75A5-44F3-BC9D-611D1318A141}
+		{A5F37772-372A-4C68-8501-11B570E6712E} = {8039C294-9CC3-4A09-9850-D03629B0425A}
+		{72BBEB3E-850A-462A-A5F4-650E6793FCE8} = {4038B32A-97A9-4411-A69B-B27375E1AF3E}
+		{3AF15578-30CE-40CE-AD38-2C3FB46E27B4} = {FB6D1B5B-5A78-4422-82EC-321E486663B8}
+		{FD015EBC-11B8-449B-A868-72320ACCAACF} = {17A92C41-4EBD-43EA-8C1C-5D6CAE9F0DA9}
+		{001C8E0D-0850-4554-A234-FA46ADC4186F} = {17A92C41-4EBD-43EA-8C1C-5D6CAE9F0DA9}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F2E20EB5-7C56-4313-84E1-74790C2F0A40}
 	EndGlobalSection
 EndGlobal
