@@ -31,4 +31,10 @@
     <ProjectReference Include="..\..\Domain\AsterCell.AuthorizationServer.Domain\AsterCell.AuthorizationServer.Domain.csproj" />
     <ProjectReference Include="..\..\Infrastructure\AsterCell.AuthorizationServer.Infrastructure\AsterCell.AuthorizationServer.Infrastructure.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\js\editor\ckeditor\adapters\" />
+    <Folder Include="wwwroot\js\time-picker\" />
+    <Folder Include="wwwroot\js\timeline\timeline-v-2\" />
+  </ItemGroup>
 </Project>

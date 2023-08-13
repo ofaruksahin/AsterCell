@@ -3,6 +3,7 @@ using AsterCell.AuthorizationServer.Infrastructure;
 using IdentityModel;
 using IdentityServer4.EntityFramework.DbContexts;
 using IdentityServer4.EntityFramework.Mappers;
+using IdentityServerHost.Quickstart.UI;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -28,22 +29,29 @@ namespace AsterCell.AuthorizationServer
                 persistedGrantDbContext.Database.Migrate();
 
                 var userMgr = scope.ServiceProvider.GetRequiredService<UserManager<AsterCellUser>>();
-                var alice = userMgr.FindByNameAsync("alice").Result;
-                if (alice == null)
+
+                foreach (var item in TestUsers.Users)
                 {
-                    alice = new AsterCellUser
+                    var user = userMgr.FindByNameAsync(item.Username).Result;
+                    if (user != null)
                     {
-                        UserName = "alice",
-                        Email = "AliceSmith@email.com",
+                        Log.Debug("alice already exists");
+                        continue;
+                    }
+
+                    user = new AsterCellUser
+                    {
+                        UserName = item.Username,
+                        Email = item.Username,
                         EmailConfirmed = true,
                     };
-                    var result = userMgr.CreateAsync(alice, "Pass123$").Result;
+                    var result = userMgr.CreateAsync(user, "Pass123$").Result;
                     if (!result.Succeeded)
                     {
                         throw new Exception(result.Errors.First().Description);
                     }
 
-                    result = userMgr.AddClaimsAsync(alice, new Claim[]{
+                    result = userMgr.AddClaimsAsync(user, new Claim[]{
                             new Claim(JwtClaimTypes.Name, "Alice Smith"),
                             new Claim(JwtClaimTypes.GivenName, "Alice"),
                             new Claim(JwtClaimTypes.FamilyName, "Smith"),
@@ -53,44 +61,7 @@ namespace AsterCell.AuthorizationServer
                     {
                         throw new Exception(result.Errors.First().Description);
                     }
-                    Log.Debug("alice created");
-                }
-                else
-                {
-                    Log.Debug("alice already exists");
-                }
 
-                var bob = userMgr.FindByNameAsync("bob").Result;
-                if (bob == null)
-                {
-                    bob = new AsterCellUser
-                    {
-                        UserName = "bob",
-                        Email = "BobSmith@email.com",
-                        EmailConfirmed = true
-                    };
-                    var result = userMgr.CreateAsync(bob, "Pass123$").Result;
-                    if (!result.Succeeded)
-                    {
-                        throw new Exception(result.Errors.First().Description);
-                    }
-
-                    result = userMgr.AddClaimsAsync(bob, new Claim[]{
-                            new Claim(JwtClaimTypes.Name, "Bob Smith"),
-                            new Claim(JwtClaimTypes.GivenName, "Bob"),
-                            new Claim(JwtClaimTypes.FamilyName, "Smith"),
-                            new Claim(JwtClaimTypes.WebSite, "http://bob.com"),
-                            new Claim("location", "somewhere")
-                        }).Result;
-                    if (!result.Succeeded)
-                    {
-                        throw new Exception(result.Errors.First().Description);
-                    }
-                    Log.Debug("bob created");
-                }
-                else
-                {
-                    Log.Debug("bob already exists");
                 }
 
                 foreach (var item in Config.IdentityResources)

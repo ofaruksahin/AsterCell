@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AsterCell.AuthorizationServer.Infrastructure
 {
-    public class AsterCellAuthorizationDbContext : IdentityDbContext<AsterCellUser,AsterCellRole,int>
+    public class AsterCellAuthorizationDbContext : IdentityDbContext<AsterCellUser, AsterCellRole, int>
     {
         public AsterCellAuthorizationDbContext(DbContextOptions<AsterCellAuthorizationDbContext> options) : base(options)
         {

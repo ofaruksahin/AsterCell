@@ -32,7 +32,7 @@ namespace AsterCell.AuthorizationServer
                     RequireClientSecret = false,
 
                     RedirectUris =           { "http://localhost:5173/callback" },
-                    PostLogoutRedirectUris = { "http://localhost:5173/index" },
+                    PostLogoutRedirectUris = { "http://localhost:5173" },
                     AllowedCorsOrigins =     { "http://localhost:5173" },
 
                     AllowedScopes =

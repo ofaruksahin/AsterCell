@@ -1,92 +1,85 @@
-@model LoginViewModel
+﻿@model LoginViewModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Cuba admin is super flexible, powerful, clean &amp; modern responsive bootstrap 5 admin template with unlimited possibilities.">
+    <meta name="keywords" content="admin template, Cuba admin template, dashboard template, flat admin template, responsive admin template, web app">
+    <meta name="author" content="pixelstrap">
+    <link rel="icon" href="~/images/favicon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="~/images/favicon.png" type="image/x-icon">
+    <title>AsterCell</title>
+    <link href="https://fonts.googleapis.com/css?family=Rubik:400,400i,500,500i,700,700i&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="~/css/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="~/css/vendors/icofont.css">
+    <link rel="stylesheet" type="text/css" href="~/css/vendors/themify.css">
+    <link rel="stylesheet" type="text/css" href="~/css/vendors/flag-icon.css">
+    <link rel="stylesheet" type="text/css" href="~/css/vendors/feather-icon.css">
+    <link rel="stylesheet" type="text/css" href="~/css/vendors/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="~/css/style.css">
+    <link id="color" rel="stylesheet" href="~/css/color-1.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="~/css/responsive.css">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-7"><img class="bg-img-cover bg-center" src="~/images/login/2.jpg" alt="looginpage"></div>
+            <div class="col-xl-5 p-0">
+                <div class="login-card login-dark">
+                    <div>
+                        <div><a class="logo text-start" href="index.html"><img class="img-fluid for-light" src="~/images/logo/logo.png" alt="looginpage"><img class="img-fluid for-dark" src="~/images/logo/logo_dark.png" alt="looginpage"></a></div>
+                        <div class="login-main">
+                            <form asp-route="login" class="theme-form">
 
-<div class="login-page">
-    <div class="lead">
-        <h1>Login</h1>
-        <p>Choose how to login</p>
-    </div>
+                                <input type="hidden" asp-for="ReturnUrl"/>
 
-    <partial name="_ValidationSummary" />
-
-    <div class="row">
-
-        @if (Model.EnableLocalLogin)
-        {
-            <div class="col-sm-6">
-                <div class="card">
-                    <div class="card-header">
-                        <h2>Local Account</h2>
-                    </div>
-
-                    <div class="card-body">
-                        <form asp-route="Login">
-                            <input type="hidden" asp-for="ReturnUrl" />
-
-                            <div class="form-group">
-                                <label asp-for="Username"></label>
-                                <input class="form-control" placeholder="Username" asp-for="Username" autofocus>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="Password"></label>
-                                <input type="password" class="form-control" placeholder="Password" asp-for="Password" autocomplete="off">
-                            </div>
-                            @if (Model.AllowRememberLogin)
-                            {
+                                <h4>Hesaba giriş yap</h4>
+                                <p>Giriş yapmak için email ve şifrenizi giriniz</p>
                                 <div class="form-group">
-                                    <div class="form-check">
-                                        <input class="form-check-input" asp-for="RememberLogin">
-                                        <label class="form-check-label" asp-for="RememberLogin">
-                                            Remember My Login
-                                        </label>
-                                    </div>
+                                    <partial name="_ValidationSummary" />
                                 </div>
-                            }
+                                <div class="form-group">
+                                    <label asp-for="Username" class="col-form-label"></label>
+                                    <input class="form-control" placeholder="Email" type="email" asp-for="Username" autofocus>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Password" class="col-form-label"></label>
+                                    <input type="password" class="form-control" placeholder="Password" asp-for="Password" autocomplete="off">
+                                </div>
 
-                            <div>
-                                <p>The default users are alice/bob, password: Pass123$</p>
-                            </div>
+                                @if (Model.AllowRememberLogin)
+                                {
+                                    <div class="form-group mb-0">
+                                        <div class="checkbox p-0">
+                                            <input asp-for="RememberLogin">
+                                            <label class="text-muted" asp-for="RememberLogin">
+                                                Beni Hatırla
+                                            </label>
+                                        </div>
+                                    </div>
+                                }
 
-                            <button class="btn btn-primary" name="button" value="login">Login</button>
-                            <button class="btn btn-secondary" name="button" value="cancel">Cancel</button>
-                        </form>
+                                <button class="btn btn-primary btn-block w-100" name="button" value="login">Giriş Yap</button>
+
+                                <p class="mt-4 mb-0 text-center">Hesabınız yok mu?<a class="ms-2" href="sign-up.html">Hesap oluşturun</a></p>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        }
-
-        @if (Model.VisibleExternalProviders.Any())
-        {
-            <div class="col-sm-6">
-                <div class="card">
-                    <div class="card-header">
-                        <h2>External Account</h2>
-                    </div>
-                    <div class="card-body">
-                        <ul class="list-inline">
-                            @foreach (var provider in Model.VisibleExternalProviders)
-                            {
-                                <li class="list-inline-item">
-                                    <a class="btn btn-secondary"
-                                       asp-controller="External"
-                                       asp-action="Challenge"
-                                       asp-route-scheme="@provider.AuthenticationScheme"
-                                       asp-route-returnUrl="@Model.ReturnUrl">
-                                        @provider.DisplayName
-                                    </a>
-                                </li>
-                            }
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        }
-
-        @if (!Model.EnableLocalLogin && !Model.VisibleExternalProviders.Any())
-        {
-            <div class="alert alert-warning">
-                <strong>Invalid login request</strong>
-                There are no login schemes configured for this request.
-            </div>
-        }
+        </div>
+        <script src="~/js/jquery.min.js"></script>
+        <script src="~/js/bootstrap/bootstrap.bundle.min.js"></script>
+        <script src="~/js/icons/feather-icon/feather.min.js"></script>
+        <script src="~/js/icons/feather-icon/feather-icon.js"></script>
+        <script src="~/js/config.js"></script>
+        <script src="~/js/script.js"></script>
     </div>
-</div>
+</body>
+</html>
