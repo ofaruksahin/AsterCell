@@ -12,26 +12,27 @@ namespace IdentityServerHost.Quickstart.UI
             new TestUser{SubjectId = "818727", Username = "alice", Password = "alice",
                 Claims =
                 {
-                    new Claim(JwtClaimTypes.Name, "Alice Smith"),
-                    new Claim(JwtClaimTypes.GivenName, "Alice"),
-                    new Claim(JwtClaimTypes.FamilyName, "Smith"),
-                    new Claim(JwtClaimTypes.Email, "AliceSmith@email.com"),
-                    new Claim(JwtClaimTypes.EmailVerified, "true", ClaimValueTypes.Boolean),
-                    new Claim(JwtClaimTypes.WebSite, "http://alice.com"),
-                    new Claim(JwtClaimTypes.Address, @"{ 'street_address': 'One Hacker Way', 'locality': 'Heidelberg', 'postal_code': 69118, 'country': 'Germany' }", IdentityServer4.IdentityServerConstants.ClaimValueTypes.Json)
-                }
+                    new Claim(JwtClaimTypes.NickName, "alice"),
+                    new Claim(JwtClaimTypes.PreferredUserName, "alice"),
+                    new Claim(JwtClaimTypes.Email, "alice"),
+                    new Claim(JwtClaimTypes.EmailVerified, "alice"),
+                    new Claim(JwtClaimTypes.PhoneNumber, "905300000000"),
+                    new Claim(JwtClaimTypes.PhoneNumberVerified,"905300000000"),
+                    new Claim("tenantId","1001"),
+                    new Claim("role","admin")
+                },
             },
             new TestUser{SubjectId = "88421113", Username = "bob", Password = "bob",
                 Claims =
                 {
-                    new Claim(JwtClaimTypes.Name, "Bob Smith"),
-                    new Claim(JwtClaimTypes.GivenName, "Bob"),
-                    new Claim(JwtClaimTypes.FamilyName, "Smith"),
-                    new Claim(JwtClaimTypes.Email, "BobSmith@email.com"),
-                    new Claim(JwtClaimTypes.EmailVerified, "true", ClaimValueTypes.Boolean),
-                    new Claim(JwtClaimTypes.WebSite, "http://bob.com"),
-                    new Claim(JwtClaimTypes.Address, @"{ 'street_address': 'One Hacker Way', 'locality': 'Heidelberg', 'postal_code': 69118, 'country': 'Germany' }", IdentityServer4.IdentityServerConstants.ClaimValueTypes.Json),
-                    new Claim("location", "somewhere")
+                    new Claim(JwtClaimTypes.NickName, "bob"),
+                    new Claim(JwtClaimTypes.PreferredUserName, "bob"),
+                    new Claim(JwtClaimTypes.Email, "bob"),
+                    new Claim(JwtClaimTypes.EmailVerified, "bob"),
+                    new Claim(JwtClaimTypes.PhoneNumber, "905300000000"),
+                    new Claim(JwtClaimTypes.PhoneNumberVerified,"905300000000"),
+                    new Claim("tenantId","1001"),
+                    new Claim("role","admin")
                 }
             },
             new TestUser
@@ -41,13 +42,14 @@ namespace IdentityServerHost.Quickstart.UI
                 Password="123456789fF@",
                 Claims =
                 {
-                    new Claim(JwtClaimTypes.GivenName, "Bob"),
-                    new Claim(JwtClaimTypes.FamilyName, "Smith"),
-                    new Claim(JwtClaimTypes.Email, "BobSmith@email.com"),
-                    new Claim(JwtClaimTypes.EmailVerified, "true", ClaimValueTypes.Boolean),
-                    new Claim(JwtClaimTypes.WebSite, "http://bob.com"),
-                    new Claim(JwtClaimTypes.Address, @"{ 'street_address': 'One Hacker Way', 'locality': 'Heidelberg', 'postal_code': 69118, 'country': 'Germany' }", IdentityServer4.IdentityServerConstants.ClaimValueTypes.Json),
-                    new Claim("location", "somewhere")
+                    new Claim(JwtClaimTypes.NickName, "ofaruksahin@outlook.com.tr"),
+                    new Claim(JwtClaimTypes.PreferredUserName, "ofaruksahin@outlook.com.tr"),
+                    new Claim(JwtClaimTypes.Email, "ofaruksahin@outlook.com.tr"),
+                    new Claim(JwtClaimTypes.EmailVerified, "ofaruksahin@outlook.com.tr"),
+                    new Claim(JwtClaimTypes.PhoneNumber, "905300000000"),
+                    new Claim(JwtClaimTypes.PhoneNumberVerified,"905300000000"),
+                    new Claim("tenantId","1001"),
+                    new Claim("role","admin")
                 }
             }
         };

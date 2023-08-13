@@ -44,6 +44,7 @@ namespace AsterCell.AuthorizationServer
                         UserName = item.Username,
                         Email = item.Username,
                         EmailConfirmed = true,
+                        TenantId = "1001"
                     };
                     var result = userMgr.CreateAsync(user, "Pass123$").Result;
                     if (!result.Succeeded)
@@ -51,12 +52,8 @@ namespace AsterCell.AuthorizationServer
                         throw new Exception(result.Errors.First().Description);
                     }
 
-                    result = userMgr.AddClaimsAsync(user, new Claim[]{
-                            new Claim(JwtClaimTypes.Name, "Alice Smith"),
-                            new Claim(JwtClaimTypes.GivenName, "Alice"),
-                            new Claim(JwtClaimTypes.FamilyName, "Smith"),
-                            new Claim(JwtClaimTypes.WebSite, "http://alice.com"),
-                        }).Result;
+
+                    result = userMgr.AddClaimsAsync(user,item.Claims).Result;
                     if (!result.Succeeded)
                     {
                         throw new Exception(result.Errors.First().Description);
@@ -72,22 +69,8 @@ namespace AsterCell.AuthorizationServer
                         Log.Debug($"{item.Name} Identity resource already exists");
                         continue;
                     }
-
+                    
                     configurationDbContext.IdentityResources.Add(item.ToEntity());
-                }
-
-                configurationDbContext.SaveChanges();
-
-                foreach (var item in Config.ApiScopes)
-                {
-                    var hasExists = configurationDbContext.ApiScopes.Any(f => f.Name == item.Name);
-                    if (hasExists)
-                    {
-                        Log.Debug($"{item.Name} Api scope already exists");
-                        continue;
-                    }
-
-                    configurationDbContext.ApiScopes.Add(item.ToEntity());
                 }
 
                 configurationDbContext.SaveChanges();

@@ -4,14 +4,16 @@ using AsterCell.AuthorizationServer.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AsterCell.AuthorizationServer.Infrastructure.Migrations
 {
     [DbContext(typeof(AsterCellAuthorizationDbContext))]
-    partial class AsterCellAuthorizationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230813140423_AddTenantIdColumn")]
+    partial class AddTenantIdColumn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
