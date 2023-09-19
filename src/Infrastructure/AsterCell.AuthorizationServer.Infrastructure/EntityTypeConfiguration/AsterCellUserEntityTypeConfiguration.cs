@@ -12,6 +12,10 @@ namespace AsterCell.AuthorizationServer.Infrastructure.EntityTypeConfiguration
                 .Property(f => f.TenantId)
                 .HasMaxLength(12)
                 .IsRequired();
+
+            builder
+                .Property(f => f.IsMaster)
+                .IsRequired();
         }
     }
 }

@@ -44,7 +44,8 @@ namespace AsterCell.AuthorizationServer
                         UserName = item.Username,
                         Email = item.Username,
                         EmailConfirmed = true,
-                        TenantId = "1001"
+                        TenantId = "1001",
+                        IsMaster = true
                     };
                     var result = userMgr.CreateAsync(user, "Pass123$").Result;
                     if (!result.Succeeded)
