@@ -36,5 +36,10 @@ namespace AsterCell.Ari.Client.ARI_1_0.Events
         /// Current status of the dialing attempt to the peer.
         /// </summary>
         public string Dialstatus { get; set; }
+
+        public override string ToString()
+        {
+            return ToString(this);
+        }
     }
 }

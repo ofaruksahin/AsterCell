@@ -11,5 +11,10 @@ namespace AsterCell.Ari.Client.ARI_1_0.Events
         /// The channel whose connected line has changed.
         /// </summary>
         public Channel Channel { get; set; }
+
+        public override string ToString()
+        {
+            return ToString(this);
+        }
     }
 }

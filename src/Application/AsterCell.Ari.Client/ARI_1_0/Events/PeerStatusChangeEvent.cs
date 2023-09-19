@@ -16,5 +16,10 @@ namespace AsterCell.Ari.Client.ARI_1_0.Events
         /// no description provided
         /// </summary>
         public Peer Peer { get; set; }
+
+        public override string ToString()
+        {
+            return ToString(this);
+        }
     }
 }

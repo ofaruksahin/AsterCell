@@ -21,5 +21,10 @@ namespace AsterCell.Ari.Client.ARI_1_0.Events
         /// The channel on which the variable was set.  If missing, the variable is a global variable.
         /// </summary>
         public Channel Channel { get; set; }
+
+        public override string ToString()
+        {
+            return ToString(this);
+        }
     }
 }

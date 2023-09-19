@@ -16,5 +16,10 @@ namespace AsterCell.Ari.Client.ARI_1_0.Events
         /// no description provided
         /// </summary>
         public ContactInfo Contact_info { get; set; }
+
+        public override string ToString()
+        {
+            return ToString(this);
+        }
     }
 }

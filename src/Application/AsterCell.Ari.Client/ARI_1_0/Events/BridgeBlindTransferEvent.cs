@@ -43,5 +43,10 @@ namespace AsterCell.Ari.Client.ARI_1_0.Events
         /// The bridge being transferred
         /// </summary>
         public Bridge Bridge { get; set; }
+
+        public override string ToString()
+        {
+            return ToString(this);
+        }
     }
 }

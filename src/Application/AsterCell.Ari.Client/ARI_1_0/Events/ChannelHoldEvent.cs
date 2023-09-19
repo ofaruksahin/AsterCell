@@ -16,5 +16,10 @@ namespace AsterCell.Ari.Client.ARI_1_0.Events
         /// The music on hold class that the initiator requested.
         /// </summary>
         public string Musicclass { get; set; }
+
+        public override string ToString()
+        {
+            return ToString(this);
+        }
     }
 }

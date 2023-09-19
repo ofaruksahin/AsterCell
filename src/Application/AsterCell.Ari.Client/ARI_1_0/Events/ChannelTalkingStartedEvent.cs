@@ -11,5 +11,10 @@ namespace AsterCell.Ari.Client.ARI_1_0.Events
         /// The channel on which talking started.
         /// </summary>
         public Channel Channel { get; set; }
+
+        public override string ToString()
+        {
+            return ToString(this);
+        }
     }
 }

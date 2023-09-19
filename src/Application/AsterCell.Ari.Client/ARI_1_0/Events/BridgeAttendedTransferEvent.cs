@@ -83,5 +83,10 @@ namespace AsterCell.Ari.Client.ARI_1_0.Events
         /// Bridge that survived the threeway result
         /// </summary>
         public Bridge Destination_threeway_bridge { get; set; }
+
+        public override string ToString()
+        {
+            return ToString(this);
+        }
     }
 }

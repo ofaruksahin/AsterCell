@@ -17,5 +17,10 @@ namespace AsterCell.Ari.Client.ARI_1_0.Events
         /// The length of time, in milliseconds, that talking was detected on the channel
         /// </summary>
         public int Duration { get; set; }
+
+        public override string ToString()
+        {
+            return ToString(this);
+        }
     }
 }

@@ -31,5 +31,10 @@ namespace AsterCell.Ari.Client.ARI_1_0.Events
         /// Custom Userevent data
         /// </summary>
         public object Userevent { get; set; }
+
+        public override string ToString()
+        {
+            return ToString(this);
+        }
     }
 }

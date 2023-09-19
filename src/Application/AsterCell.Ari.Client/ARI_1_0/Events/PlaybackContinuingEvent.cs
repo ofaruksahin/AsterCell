@@ -11,5 +11,10 @@ namespace AsterCell.Ari.Client.ARI_1_0.Events
         /// Playback control object
         /// </summary>
         public Playback Playback { get; set; }
+
+        public override string ToString()
+        {
+            return ToString(this);
+        }
     }
 }

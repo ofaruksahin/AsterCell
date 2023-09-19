@@ -22,5 +22,10 @@ namespace AsterCell.Ari.Client.ARI_1_0.Events
         /// The channel on which the hangup was requested.
         /// </summary>
         public Channel Channel { get; set; }
+
+        public override string ToString()
+        {
+            return ToString(this);
+        }
     }
 }

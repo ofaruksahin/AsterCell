@@ -148,7 +148,7 @@ namespace AsterCell.Ari.Client
             // load the message
             var jsonMsg = (JObject)JToken.Parse(e.Message);
             var eventName = jsonMsg.SelectToken("type").Value<string>();
-            var type = Type.GetType("AsterCell.Ari.Client.Models." + eventName + "Event");
+            var type = Type.GetType("AsterCell.Ari.Client.ARI_1_0.Events." + eventName + "Event");
             var evnt =
                 (type != null)
                     ? (Event)JsonConvert.DeserializeObject(e.Message, type)

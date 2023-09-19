@@ -22,5 +22,10 @@ namespace AsterCell.Ari.Client.ARI_1_0.Events
         /// The data to be passed to the application.
         /// </summary>
         public string Dialplan_app_data { get; set; }
+
+        public override string ToString()
+        {
+            return ToString(this);
+        }
     }
 }

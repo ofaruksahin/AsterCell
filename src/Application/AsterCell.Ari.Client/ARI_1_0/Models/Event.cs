@@ -1,4 +1,6 @@
-﻿namespace AsterCell.Ari.Client.ARI_1_0.Models
+﻿using System.Text.Json;
+
+namespace AsterCell.Ari.Client.ARI_1_0.Models
 {
     /// <summary>
     /// Base type for asynchronous events from Asterisk.
@@ -14,5 +16,10 @@
         /// Time at which this event was created.
         /// </summary>
         public DateTime Timestamp { get; set; }
+
+        protected string ToString(object obj)
+        {
+            return JsonSerializer.Serialize(obj);
+        }
     }
 }

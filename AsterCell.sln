@@ -21,6 +21,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AsterCell.AuthorizationServ
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AsterCell.AuthorizationServer", "src\Presentation\AsterCell.AuthorizationServer\AsterCell.AuthorizationServer.csproj", "{832F59A8-DD84-454A-B8C1-966E3E523DD5}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Asterisk Sample Configs", "Asterisk Sample Configs", "{704D20FA-889F-4169-9D0B-051E104A099E}"
+	ProjectSection(SolutionItems) = preProject
+		sample_configs\ari.conf = sample_configs\ari.conf
+		sample_configs\extconfig.conf = sample_configs\extconfig.conf
+		sample_configs\http.conf = sample_configs\http.conf
+		sample_configs\nginx = sample_configs\nginx
+		sample_configs\pjsip.conf = sample_configs\pjsip.conf
+		sample_configs\res_config_mysql.conf = sample_configs\res_config_mysql.conf
+		sample_configs\sorcery.conf = sample_configs\sorcery.conf
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsterCell.Ari", "src\Presentation\AsterCell.Ari\AsterCell.Ari.csproj", "{5AE02564-F2EE-42E2-90C9-11B086525C99}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +56,10 @@ Global
 		{832F59A8-DD84-454A-B8C1-966E3E523DD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{832F59A8-DD84-454A-B8C1-966E3E523DD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{832F59A8-DD84-454A-B8C1-966E3E523DD5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5AE02564-F2EE-42E2-90C9-11B086525C99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AE02564-F2EE-42E2-90C9-11B086525C99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AE02564-F2EE-42E2-90C9-11B086525C99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AE02564-F2EE-42E2-90C9-11B086525C99}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -56,6 +73,7 @@ Global
 		{3E1A3C59-8955-4177-A5C8-5ADADBB91794} = {4038B32A-97A9-4411-A69B-B27375E1AF3E}
 		{0C663449-198C-40FF-9BB4-6839ACDF30EB} = {FB6D1B5B-5A78-4422-82EC-321E486663B8}
 		{832F59A8-DD84-454A-B8C1-966E3E523DD5} = {17A92C41-4EBD-43EA-8C1C-5D6CAE9F0DA9}
+		{5AE02564-F2EE-42E2-90C9-11B086525C99} = {17A92C41-4EBD-43EA-8C1C-5D6CAE9F0DA9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F2E20EB5-7C56-4313-84E1-74790C2F0A40}
