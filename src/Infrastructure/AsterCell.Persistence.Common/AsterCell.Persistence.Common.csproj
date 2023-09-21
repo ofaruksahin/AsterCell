@@ -8,12 +8,10 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.11" />
-    <PackageReference Include="MySql.EntityFrameworkCore" Version="7.0.5" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Application\AsterCell.Application\AsterCell.Application.csproj" />
-    <ProjectReference Include="..\AsterCell.Persistence.Common\AsterCell.Persistence.Common.csproj" />
+    <ProjectReference Include="..\..\Application\AsterCell.Application.Common\AsterCell.Application.Common.csproj" />
   </ItemGroup>
 
 </Project>

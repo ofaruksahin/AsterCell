@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Domain\Asterisk.Domain\Asterisk.Domain.csproj" />
+    <ProjectReference Include="..\AsterCell.Application.Common\AsterCell.Application.Common.csproj" />
+  </ItemGroup>
+
 </Project>

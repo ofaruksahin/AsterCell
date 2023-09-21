@@ -4,9 +4,8 @@ using System.Text.Json.Serialization;
 
 namespace AsterCell.Common.Models
 {
-    public abstract class BaseEntity<TId>
+    public abstract class BaseEntity
     {
-        public TId Id { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
         public string CreateUser { get; set; }
@@ -44,10 +43,15 @@ namespace AsterCell.Common.Models
 
         public void ClearDomainEvents()
         {
-            if(_domainEvents is null)
+            if (_domainEvents is null)
                 _domainEvents = new List<IDomainEvent>();
 
             _domainEvents.Clear();
         }
+    }
+
+    public abstract class BaseEntity<TId> : BaseEntity
+    {
+        public TId Id { get; set; }
     }
 }
