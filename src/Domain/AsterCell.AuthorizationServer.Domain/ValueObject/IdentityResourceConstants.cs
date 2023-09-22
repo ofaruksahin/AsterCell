@@ -9,15 +9,15 @@ namespace AsterCell.AuthorizationServer.Domain.ValueObject
         public static IdentityResource OpenId = new IdentityResources.OpenId();
         public static IdentityResource Profile = new IdentityResources.Profile();
         public static IdentityResource TenantId = new IdentityResource(
-            "tenantId",
+            "tenant_id",
             "Müşteriler için oluşturulmuş eşsiz nuamaradır",
-            new List<string> { "tenantId" });
+            new List<string> { "tenant_id" });
         public static IdentityResource Roles = new IdentityResource(
             "roles",
             "Kullanıcıya atanmış rolleri gösterir",
             new List<string> { "role" });
         public static IdentityResource PhoneNumber = new IdentityResource(
-            "phoneNumber",
+            "phone_number",
             "Kullanıcının telefon nuamarası",
             new List<string>
             {

@@ -18,7 +18,7 @@ namespace IdentityServerHost.Quickstart.UI
                     new Claim(JwtClaimTypes.EmailVerified, "alice"),
                     new Claim(JwtClaimTypes.PhoneNumber, "905300000000"),
                     new Claim(JwtClaimTypes.PhoneNumberVerified,"905300000000"),
-                    new Claim("tenantId","1001"),
+                    new Claim("tenant_id","1001"),
                     new Claim("role","admin")
                 },
             },
@@ -31,7 +31,7 @@ namespace IdentityServerHost.Quickstart.UI
                     new Claim(JwtClaimTypes.EmailVerified, "bob"),
                     new Claim(JwtClaimTypes.PhoneNumber, "905300000000"),
                     new Claim(JwtClaimTypes.PhoneNumberVerified,"905300000000"),
-                    new Claim("tenantId","1001"),
+                    new Claim("tenant_id","1001"),
                     new Claim("role","admin")
                 }
             },
@@ -48,7 +48,7 @@ namespace IdentityServerHost.Quickstart.UI
                     new Claim(JwtClaimTypes.EmailVerified, "ofaruksahin@outlook.com.tr"),
                     new Claim(JwtClaimTypes.PhoneNumber, "905300000000"),
                     new Claim(JwtClaimTypes.PhoneNumberVerified,"905300000000"),
-                    new Claim("tenantId","1001"),
+                    new Claim("tenant_id","1001"),
                     new Claim("role","admin")
                 }
             }

@@ -1,4 +1,7 @@
 ﻿using AsterCell.Application;
+using AsterCell.Application.Common.Contracts;
+using AsterCell.Application.Common.Models;
+using AsterCell.Application.Common.Services;
 using AsterCell.Application.Contrracts.Repositories;
 using AsterCell.Application.Contrracts.Services;
 using AsterCell.Application.Pipelines;
@@ -7,6 +10,7 @@ using AsterCell.Persistence;
 using AsterCell.Persistence.Repositories;
 using FluentValidation;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 
 namespace AsterCell.Api.Extensions
@@ -21,6 +25,18 @@ namespace AsterCell.Api.Extensions
                 .AddFluentValidation()
                 .AddMediator()
                 .AddMapper();
+
+            var identityServerOptions = @this.AddIdentityServerOptions(configuration);
+
+            @this
+                .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
+                {
+                    options.Authority = identityServerOptions.Authority;
+                    options.Audience = identityServerOptions.Audience;
+                });
+
+            @this.AddHttpContextAccessor();
 
             return @this;
         }
@@ -92,6 +108,25 @@ namespace AsterCell.Api.Extensions
         {
             @this.AddAutoMapper(typeof(AsterCellApplicationPackageLoader).Assembly);
             return @this;
+        }
+
+        private static IdentityServerOptions AddIdentityServerOptions(this IServiceCollection @this, IConfiguration configuration)
+        {
+            IdentityServerOptions identityServerOptions = new IdentityServerOptions();
+            configuration.GetSection(IdentityServerOptions.Key).Bind(identityServerOptions);
+
+            if (!identityServerOptions.Validate())
+                throw new Exception("IdentityServerOptions not configured");
+
+            @this.AddScoped<IdentityServerOptions>();
+            @this.AddScoped<IUserInfo, UserInfo>();
+
+            @this.AddHttpClient<IUserInfo, UserInfo>(options =>
+            {
+                options.BaseAddress = new Uri(identityServerOptions.Authority);
+            });
+
+            return identityServerOptions;
         }
     }
 }
