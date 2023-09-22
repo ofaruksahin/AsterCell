@@ -1,13 +1,13 @@
-﻿using AsterCell.Application.Common.Models;
+﻿using AsterCell.Api.Filters;
+using AsterCell.Application.Common.Models;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AsterCell.Api.Controllers
 {
-    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
+    [CustomAuthenticationFilter]
     public class BaseController : ControllerBase
     {
         protected readonly IMediator _mediator;

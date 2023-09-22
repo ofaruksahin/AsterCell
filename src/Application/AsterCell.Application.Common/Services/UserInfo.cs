@@ -75,6 +75,9 @@ namespace AsterCell.Application.Common.Services
 
         public async Task<bool> IsAuthenticated()
         {
+            if (_user != null)
+                return true;
+
             var token = GetToken();
 
             if (string.IsNullOrEmpty(token))

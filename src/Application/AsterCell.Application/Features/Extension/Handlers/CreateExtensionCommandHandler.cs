@@ -1,4 +1,5 @@
-﻿using AsterCell.Application.Common.Models;
+﻿using AsterCell.Application.Common.Contracts;
+using AsterCell.Application.Common.Models;
 using AsterCell.Application.Contrracts.Services;
 using AsterCell.Application.Features.Extension.Commands;
 using AutoMapper;
@@ -11,15 +12,17 @@ namespace AsterCell.Application.Features.Extension.Handlers
         private readonly IExtensionService _extensionService;
 
         public CreateExtensionCommandHandler(
-            IMapper _mapper,
+            IMapper mapper,
+            IUserInfo userInfo,
             IExtensionService extensionService)
-            : base(_mapper)
+            : base(mapper,userInfo)
         {
             _extensionService = extensionService;
         }
 
         public async Task<ApiResponse> Handle(CreateExtensionCommand request, CancellationToken cancellationToken)
         {
+            await _userInfo.IsAuthenticated();
             return ApiResponse.Success(new { });
         }
     }

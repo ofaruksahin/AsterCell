@@ -1,4 +1,5 @@
-﻿using AsterCell.Application.Common.Contracts;
+﻿using AsterCell.Api.Filters;
+using AsterCell.Application.Common.Contracts;
 using AsterCell.Application.Features.Extension.Commands;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

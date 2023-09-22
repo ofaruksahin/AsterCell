@@ -36,6 +36,11 @@ namespace AsterCell.Persistence.Configurations
                 .HasMaxLength(100)
                 .IsRequired();
 
+            builder
+                .Property(f => f.Password)
+                .HasMaxLength(200)
+                .IsRequired();
+
             builder.ToTable("extensions");
         }
     }

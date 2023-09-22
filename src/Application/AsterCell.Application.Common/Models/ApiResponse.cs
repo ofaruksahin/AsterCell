@@ -63,11 +63,25 @@ namespace AsterCell.Application.Common.Models
                 StatusCode = statusCode,
                 Messages = messages
             };
+
+        public static ApiResponse Create(Result result)
+            => new ApiResponse
+            {
+                StatusCode = result.IsSuccess ? (int)HttpStatusCode.OK : (int)HttpStatusCode.NotFound,
+                Messages = new List<string> { result.Message }
+            };
+
+        public static ApiResponse<T> Create<T>(Result<T> result)
+            => new ApiResponse<T>
+            {
+                Data = result.Data,
+                StatusCode = result.IsSuccess ? (int)HttpStatusCode.OK : (int)HttpStatusCode.NotFound,
+                Messages = new List<string> { result.Message }
+            };
     }
 
-    public class ApiResponse<T>
+    public class ApiResponse<T> : ApiResponse
     {
         public T Data { get; set; }
-        public List<string> Messages { get; set; }
     }
 }
