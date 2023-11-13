@@ -2,7 +2,7 @@
 {
     public class EndpointAor
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public int MaxContacts { get; set; }
         public string RemoveExisting { get; set; }
     }

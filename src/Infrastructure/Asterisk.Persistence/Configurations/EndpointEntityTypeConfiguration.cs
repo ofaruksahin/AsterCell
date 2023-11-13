@@ -8,7 +8,7 @@ namespace Asterisk.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<Endpoint> builder)
         {
-            builder.HasNoKey();
+            builder.HasKey(f => f.Id);
 
             builder
                 .Property(f => f.Id)

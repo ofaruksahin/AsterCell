@@ -3,9 +3,7 @@ using AsterCell.Application.Common.Contracts;
 using AsterCell.Application.Common.Models;
 using AsterCell.Application.Common.Services;
 using AsterCell.Application.Contrracts.Repositories;
-using AsterCell.Application.Contrracts.Services;
 using AsterCell.Application.Pipelines;
-using AsterCell.Application.Services;
 using AsterCell.Persistence;
 using AsterCell.Persistence.Repositories;
 using FluentValidation;
@@ -54,8 +52,6 @@ namespace AsterCell.Api.Extensions
 
         private static IServiceCollection AddAsterCellServices(this IServiceCollection @this)
         {
-            @this.AddScoped<IExtensionService, ExtensionService>();
-
             return @this;
         }
 

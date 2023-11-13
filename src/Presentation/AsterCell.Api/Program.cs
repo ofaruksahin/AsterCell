@@ -1,5 +1,5 @@
 using AsterCell.Api.Extensions;
-using AsterCell.Api.Filters;
+using AsterCell.Application.Common.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +16,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseMiddleware<ExceptionMiddleware>();
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
