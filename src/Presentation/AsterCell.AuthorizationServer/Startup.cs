@@ -29,7 +29,7 @@ namespace AsterCell.AuthorizationServer
             var migrationAssembly = typeof(AsterCellAuthorizationDbContext).Assembly.FullName;
 
             services.AddDbContext<AsterCellAuthorizationDbContext>(options =>
-                options.UseSqlServer(connectionString));
+                options.UseMySQL(connectionString));
 
             services.AddIdentity<AsterCellUser, AsterCellRole>()
                 .AddEntityFrameworkStores<AsterCellAuthorizationDbContext>()
@@ -48,14 +48,14 @@ namespace AsterCell.AuthorizationServer
             {
                 options.ConfigureDbContext =
                     context =>
-                        context.UseSqlServer(connectionString, sql =>
+                        context.UseMySQL(connectionString, sql =>
                             sql.MigrationsAssembly(migrationAssembly));
             })
             .AddOperationalStore(options =>
             {
                 options.ConfigureDbContext =
                     context =>
-                        context.UseSqlServer(connectionString, sql =>
+                        context.UseMySQL(connectionString, sql =>
                             sql.MigrationsAssembly(migrationAssembly));
             });
 
