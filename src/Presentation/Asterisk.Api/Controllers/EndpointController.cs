@@ -11,6 +11,11 @@ namespace Asterisk.Api.Controllers
         {
         }
 
+        /// <summary>
+        /// Asteriske dahili tanımlamak için kullanılır
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> CreateEndpoint(CreateEndpointCommand command)
         {
@@ -18,10 +23,29 @@ namespace Asterisk.Api.Controllers
             return Response(response);
         }
 
+        /// <summary>
+        /// Asteriskte tanımlı dahiliyi silmek için kullanılır
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
         [HttpDelete("{userName}")]
         public async Task<IActionResult> DeleteEndpoint(string userName)
         {
             var command = new DeleteEndpointCommand(userName);
+            var response = await _mediator.Send(command);
+            return Response(response);
+        }
+
+        /// <summary>
+        /// Asteriskte tanımlı dahili bilgilerini güncellemek için kullanılır
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="command"></param>
+        /// <returns></returns>
+        [HttpPut("{userName}")]
+        public async Task<IActionResult> UpdateEndpoint(string userName, UpdateEndpointCommand command)
+        {
+            command.Username = userName;
             var response = await _mediator.Send(command);
             return Response(response);
         }

@@ -7,7 +7,7 @@ namespace AsterCell.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [CustomAuthenticationFilter]
+    //[CustomAuthenticationFilter]
     public class BaseController : ControllerBase
     {
         protected readonly IMediator _mediator;

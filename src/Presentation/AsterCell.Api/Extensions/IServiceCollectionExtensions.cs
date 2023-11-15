@@ -9,6 +9,7 @@ using AsterCell.Persistence.Repositories;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace AsterCell.Api.Extensions
@@ -64,6 +65,11 @@ namespace AsterCell.Api.Extensions
 
         private static IServiceCollection AddFluentValidation(this IServiceCollection @this)
         {
+            @this.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.SuppressModelStateInvalidFilter = true;
+            });
+
             var assemblies = AppDomain.CurrentDomain.GetAssemblies();
             foreach (var assembly in assemblies)
             {
